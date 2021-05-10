@@ -1,4 +1,4 @@
-# .github/workflows/main.yml
+# .github/workflows/Norminette
 on: [push, pull_request]
 
 jobs:
