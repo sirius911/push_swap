@@ -1,18 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checker.c                                          :+:      :+:    :+:   */
+/*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clorin <clorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/10 15:37:35 by clorin            #+#    #+#             */
-/*   Updated: 2021/05/10 15:37:39 by clorin           ###   ########.fr       */
+/*   Created: 2020/10/03 15:30:51 by clorin            #+#    #+#             */
+/*   Updated: 2020/10/03 15:31:01 by clorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/libft.h"
+#include "libft.h"
 
-int	main(void)
+void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
-	return (0);
+	t_list		*ptr_list;
+	t_list		*ptr_next;
+
+	ptr_list = *lst;
+	while (ptr_list)
+	{
+		ptr_next = ptr_list->next;
+		(*del)(ptr_list->content);
+		free(ptr_list);
+		ptr_list = ptr_next;
+	}
+	*lst = NULL;
 }

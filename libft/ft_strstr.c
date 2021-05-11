@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checker.c                                          :+:      :+:    :+:   */
+/*   ft_strstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clorin <clorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/10 15:37:35 by clorin            #+#    #+#             */
-/*   Updated: 2021/05/10 15:37:39 by clorin           ###   ########.fr       */
+/*   Created: 2020/09/18 10:43:50 by clorin            #+#    #+#             */
+/*   Updated: 2020/09/18 10:57:07 by clorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/libft.h"
+#include "libft.h"
 
-int	main(void)
+char	*ft_strstr(const char *str, const char *substr)
 {
-	return (0);
+	return (ft_strnstr(str, substr, ft_strlen(str)));
 }

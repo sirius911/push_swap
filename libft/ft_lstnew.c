@@ -1,18 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checker.c                                          :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clorin <clorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/10 15:37:35 by clorin            #+#    #+#             */
-/*   Updated: 2021/05/10 15:37:39 by clorin           ###   ########.fr       */
+/*   Created: 2020/09/24 10:02:02 by clorin            #+#    #+#             */
+/*   Updated: 2020/09/24 10:09:12 by clorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/libft.h"
+#include "libft.h"
 
-int	main(void)
+t_list	*ft_lstnew(void *content)
 {
-	return (0);
+	t_list		*new;
+
+	new = (t_list *)malloc(sizeof(t_list));
+	if (!new)
+		return (NULL);
+	new->content = content;
+	new->next = NULL;
+	return (new);
 }

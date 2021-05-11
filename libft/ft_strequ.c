@@ -1,18 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checker.c                                          :+:      :+:    :+:   */
+/*   ft_strequ.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clorin <clorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/10 15:37:35 by clorin            #+#    #+#             */
-/*   Updated: 2021/05/10 15:37:39 by clorin           ###   ########.fr       */
+/*   Created: 2020/09/21 10:42:42 by clorin            #+#    #+#             */
+/*   Updated: 2020/09/21 10:44:34 by clorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/libft.h"
+#include "libft.h"
 
-int	main(void)
+int	ft_strequ(char const *s1, char const *s2)
 {
-	return (0);
+	if (!s1 || !s2)
+		return (0);
+	return (ft_strcmp(s1, s2) == 0);
 }

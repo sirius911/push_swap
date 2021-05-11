@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checker.c                                          :+:      :+:    :+:   */
+/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clorin <clorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/10 15:37:35 by clorin            #+#    #+#             */
-/*   Updated: 2021/05/10 15:37:39 by clorin           ###   ########.fr       */
+/*   Created: 2020/09/27 17:29:43 by clorin            #+#    #+#             */
+/*   Updated: 2020/09/27 17:39:58 by clorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/libft.h"
+#include "libft.h"
 
-int	main(void)
+void	ft_lstdelone(t_list *alist, void (*del)(void *))
 {
-	return (0);
+	(*del)(alist->content);
+	free(alist);
 }

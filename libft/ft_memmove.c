@@ -1,18 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checker.c                                          :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clorin <clorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/10 15:37:35 by clorin            #+#    #+#             */
-/*   Updated: 2021/05/10 15:37:39 by clorin           ###   ########.fr       */
+/*   Created: 2020/09/16 08:33:25 by clorin            #+#    #+#             */
+/*   Updated: 2020/09/16 08:43:59 by clorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/libft.h"
+#include "libft.h"
 
-int	main(void)
+void	*ft_memmove(void *dst, const void *src, size_t n)
 {
-	return (0);
+	if (!dst && !src)
+		return (NULL);
+	if (dst <= src)
+		return (ft_memcpy(dst, src, n));
+	else
+	{
+		while (n > 0)
+		{
+			((char *)dst)[n - 1] = ((char *)src)[n - 1];
+			n--;
+		}
+		return (dst);
+	}
 }

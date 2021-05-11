@@ -1,18 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checker.c                                          :+:      :+:    :+:   */
+/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clorin <clorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/10 15:37:35 by clorin            #+#    #+#             */
-/*   Updated: 2021/05/10 15:37:39 by clorin           ###   ########.fr       */
+/*   Created: 2020/10/03 15:07:14 by clorin            #+#    #+#             */
+/*   Updated: 2020/10/03 15:07:26 by clorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/libft.h"
+#include "libft.h"
 
-int	main(void)
+void	ft_lstadd_back(t_list **alst, t_list *new)
 {
-	return (0);
+	t_list	*list;
+
+	if (!alst || !*alst)
+	{
+		*alst = new;
+	}
+	else
+	{
+		list = ft_lstlast(*alst);
+		list->next = new;
+	}
 }

@@ -1,18 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checker.c                                          :+:      :+:    :+:   */
+/*   ft_putnchar.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clorin <clorin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: clorin <clorin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/10 15:37:35 by clorin            #+#    #+#             */
-/*   Updated: 2021/05/10 15:37:39 by clorin           ###   ########.fr       */
+/*   Created: 2020/10/06 14:20:19 by clorin            #+#    #+#             */
+/*   Updated: 2020/10/06 14:38:54 by clorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/libft.h"
+#include "libft.h"
 
-int	main(void)
+int	ft_putnchar(const char c, const int n)
 {
-	return (0);
+	int	i;
+
+	i = 0;
+	while (i < n)
+	{
+		ft_putchar(c);
+		i++;
+	}
+	return (i);
 }

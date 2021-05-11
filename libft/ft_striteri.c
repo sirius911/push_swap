@@ -1,18 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checker.c                                          :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clorin <clorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/10 15:37:35 by clorin            #+#    #+#             */
-/*   Updated: 2021/05/10 15:37:39 by clorin           ###   ########.fr       */
+/*   Created: 2020/09/21 09:37:31 by clorin            #+#    #+#             */
+/*   Updated: 2020/09/21 09:40:46 by clorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/libft.h"
+#include "libft.h"
 
-int	main(void)
+void	ft_striteri(char *s, void (*f)(unsigned int, char *))
 {
-	return (0);
+	unsigned int	i;
+
+	i = 0;
+	if (s && f)
+	{
+		while (s[i])
+		{
+			(*f)(i, &s[i]);
+			i++;
+		}
+	}
 }

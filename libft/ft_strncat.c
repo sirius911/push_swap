@@ -1,18 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checker.c                                          :+:      :+:    :+:   */
+/*   ft_strncat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clorin <clorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/10 15:37:35 by clorin            #+#    #+#             */
-/*   Updated: 2021/05/10 15:37:39 by clorin           ###   ########.fr       */
+/*   Created: 2020/09/17 15:09:52 by clorin            #+#    #+#             */
+/*   Updated: 2020/09/17 15:12:44 by clorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/libft.h"
+#include "libft.h"
 
-int	main(void)
+char	*ft_strncat(char *dest, const char *src, size_t n)
 {
-	return (0);
+	size_t		i;
+	size_t		j;
+
+	i = 0;
+	while (dest[i])
+		i++;
+	j = 0;
+	while (src[j] && j < n)
+		dest[i++] = src[j++];
+	dest[i] = 0;
+	return (dest);
 }

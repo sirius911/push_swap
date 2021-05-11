@@ -1,18 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checker.c                                          :+:      :+:    :+:   */
+/*   ft_is_nbr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clorin <clorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/10 15:37:35 by clorin            #+#    #+#             */
-/*   Updated: 2021/05/10 15:37:39 by clorin           ###   ########.fr       */
+/*   Created: 2021/04/13 14:24:30 by clorin            #+#    #+#             */
+/*   Updated: 2021/04/13 14:24:42 by clorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/libft.h"
+#include "libft.h"
 
-int	main(void)
+int	ft_is_nbr(const char *str)
 {
-	return (0);
+	int	i;
+
+	i = 0;
+	if (!str || !*str)
+		return (FALSE);
+	while (str[i])
+	{
+		if (str[i] == '+' || str[i] == '-')
+			i++;
+		else
+			break ;
+	}
+	while (str[i])
+	{
+		if (!ft_isdigit(str[i]))
+			return (FALSE);
+		i++;
+	}
+	return (TRUE);
 }

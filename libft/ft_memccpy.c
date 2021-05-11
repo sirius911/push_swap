@@ -1,18 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checker.c                                          :+:      :+:    :+:   */
+/*   ft_memccpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clorin <clorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/10 15:37:35 by clorin            #+#    #+#             */
-/*   Updated: 2021/05/10 15:37:39 by clorin           ###   ########.fr       */
+/*   Created: 2020/09/15 14:39:00 by clorin            #+#    #+#             */
+/*   Updated: 2020/09/15 14:39:14 by clorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/libft.h"
+#include "libft.h"
 
-int	main(void)
+void	*ft_memccpy(void *dest, const void *src, int c, size_t n)
 {
-	return (0);
+	size_t				i;
+	unsigned char		*d;
+	unsigned const char	*s;
+
+	i = 0;
+	d = (unsigned char *)dest;
+	s = (unsigned const char *)src;
+	if (dest == src)
+		return (dest);
+	while (i < n)
+	{
+		if (s[i] == (unsigned char)c)
+		{
+			d[i] = s[i];
+			return (&d[i + 1]);
+		}
+		d[i] = s[i];
+		i++;
+	}
+	return (NULL);
 }

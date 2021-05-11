@@ -1,18 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checker.c                                          :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clorin <clorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/10 15:37:35 by clorin            #+#    #+#             */
-/*   Updated: 2021/05/10 15:37:39 by clorin           ###   ########.fr       */
+/*   Created: 2020/09/18 10:18:15 by clorin            #+#    #+#             */
+/*   Updated: 2020/09/18 10:19:05 by clorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/libft.h"
+#include "libft.h"
 
-int	main(void)
+char	*ft_strchr(const char *str, int c)
 {
-	return (0);
+	char	*s;
+
+	s = (char *)str;
+	while (*s)
+	{
+		if (*s == (char)c)
+			return (s);
+		s++;
+	}
+	if (c == 0)
+		return (s);
+	return (NULL);
 }
