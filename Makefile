@@ -27,16 +27,16 @@ OBJ_CHECKER		= $(SRCS_CHECKER:.c=.o)
 
 OBJ_PSW			= $(SRCS_PSW:.c=.o)
 
-all :	$(PSW) $(CHECKER)
+all :	$(PSW) #$(CHECKER)
 
 .c.o :	
 		@printf "\033[0;33mGenerating objects... %-33.33s\r" $@
 		@$(CC) $(FLAGS) $(HEADER) -c $< -o $(<:.c=.o)
 
-$(CHECKER) :	$(OBJ_CHECKER)
-				@make -C libft/
-				@$(CC) $(FLAGS) $(HEADER) $(OBJ_CHECKER) -o $(CHECKER) -L libft/ -lft
-				@echo "Building checker : \033[32mOK\033[0m"
+# $(CHECKER) :	$(OBJ_CHECKER)
+# 				@make -C libft/
+# 				@$(CC) $(FLAGS) $(HEADER) $(OBJ_CHECKER) -o $(CHECKER) -L libft/ -lft
+# 				@echo "Building checker : \033[32mOK\033[0m"
 
 $(PSW) :		$(OBJ_PSW)
 				@make -C libft/
