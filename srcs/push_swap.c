@@ -29,6 +29,15 @@ int	main(int argc, char **argv)
 			printf("Error\n");
 			return (1);
 		}
+		printf("sa\n");
+		printf("pb\n");
+		printf("pb\n");
+		printf("pb\n");
+		printf("sa\n");
+		printf("pa\n");
+		printf("pa\n");
+		printf("pa\n");
+		printf("pa\n");
 		ft_lstclear(&stack_a, &free_stack);
 		ft_lstclear(&stack_b, &free_stack);
 	}
