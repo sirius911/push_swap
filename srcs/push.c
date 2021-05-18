@@ -1,36 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
+/*   push.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clorin <clorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/11 14:38:27 by clorin            #+#    #+#             */
-/*   Updated: 2021/05/11 14:38:46 by clorin           ###   ########.fr       */
+/*   Created: 2021/05/18 13:05:42 by clorin            #+#    #+#             */
+/*   Updated: 2021/05/18 13:05:45 by clorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-int	main(int argc, char **argv)
+static char	*pop(t_list **stack)
 {
-	int		i;
-	t_list	*stack_a;
-	t_list	*stack_b;
+	char	*tmp;
+	t_list	*t_list_del;
 
-	stack_a = NULL;
-	stack_b = NULL;
-	if (argc > 1)
+	if (ft_lstsize(*stack) == 0)
+		return (NULL);
+	tmp = (char *)(*stack)->content;
+	t_list_del = *stack;
+	*stack = (*stack)->next;
+	free(t_list_del);
+	return (tmp);
+}
+
+void	push(t_list **source, t_list **dest)
+{
+	char	*tmp;
+
+	if (ft_lstsize(*source) > 0)
 	{
-		i = 1;
-		stack_a = create_stack(argv);
-		if (!stack_a)
-		{
-			printf("Error\n");
-			return (1);
-		}
-		ft_lstclear(&stack_a, &free_stack);
-		ft_lstclear(&stack_b, &free_stack);
+		tmp = pop(source);
+		ft_lstadd_front(dest, ft_lstnew(ft_strdup(tmp)));
+		ft_strdel(&tmp);
 	}
-	return (0);
 }

@@ -1,36 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
+/*   rotate.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clorin <clorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/11 14:38:27 by clorin            #+#    #+#             */
-/*   Updated: 2021/05/11 14:38:46 by clorin           ###   ########.fr       */
+/*   Created: 2021/05/18 13:07:41 by clorin            #+#    #+#             */
+/*   Updated: 2021/05/18 13:07:43 by clorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-int	main(int argc, char **argv)
+void	rotate(t_list **stack)
 {
-	int		i;
-	t_list	*stack_a;
-	t_list	*stack_b;
+	t_list	*tmp;
+	t_list	*last;
 
-	stack_a = NULL;
-	stack_b = NULL;
-	if (argc > 1)
+	if (ft_lstsize(*stack) > 1)
 	{
-		i = 1;
-		stack_a = create_stack(argv);
-		if (!stack_a)
-		{
-			printf("Error\n");
-			return (1);
-		}
-		ft_lstclear(&stack_a, &free_stack);
-		ft_lstclear(&stack_b, &free_stack);
+		tmp = *stack;
+		last = ft_lstlast(*stack);
+		*stack = (*stack)->next;
+		last->next = tmp;
+		last->next->next = NULL;
 	}
-	return (0);
+}
+
+void	inv_rotate(t_list **stack)
+{
+	t_list	*last;
+	t_list	*tmp;
+
+	if (ft_lstsize(*stack) > 1)
+	{
+		tmp = *stack;
+		while ((*tmp).next->next)
+			tmp = tmp->next;
+		last = tmp->next;
+		tmp->next = NULL;
+		last->next = *stack;
+		*stack = last;
+	}
 }

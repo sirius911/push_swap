@@ -1,36 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
+/*   swap.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clorin <clorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/11 14:38:27 by clorin            #+#    #+#             */
-/*   Updated: 2021/05/11 14:38:46 by clorin           ###   ########.fr       */
+/*   Created: 2021/05/18 13:13:11 by clorin            #+#    #+#             */
+/*   Updated: 2021/05/18 13:13:15 by clorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-int	main(int argc, char **argv)
+void	swap(t_list *stack)
 {
-	int		i;
-	t_list	*stack_a;
-	t_list	*stack_b;
+	char	*tmp_a;
+	char	*tmp_b;
 
-	stack_a = NULL;
-	stack_b = NULL;
-	if (argc > 1)
+	if (stack && stack->next)
 	{
-		i = 1;
-		stack_a = create_stack(argv);
-		if (!stack_a)
-		{
-			printf("Error\n");
-			return (1);
-		}
-		ft_lstclear(&stack_a, &free_stack);
-		ft_lstclear(&stack_b, &free_stack);
+		tmp_a = (char *)stack->content;
+		tmp_b = (char *)stack->next->content;
+		stack->next->content = tmp_a;
+		stack->content = tmp_b;
 	}
-	return (0);
 }

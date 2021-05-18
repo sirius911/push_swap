@@ -19,29 +19,43 @@ FLAGS	= -Wall -Werror -Wextra
 
 HEADER	= -I includes/
 
-SRCS_CHECKER = srcs/checker.c
+SRCS_CHECKER = 	srcs/checker.c \
+				srcs/push.c \
+				srcs/rotate.c \
+				srcs/stack_utils.c \
+				srcs/free_utils.c \
+				srcs/swap.c \
+				srcs/sort_utils.c \
+				srcs/print.c
 
-SRCS_PSW = srcs/push_swap.c
+SRCS_PSW = 		srcs/checker.c \
+				srcs/push.c \
+				srcs/rotate.c \
+				srcs/stack_utils.c \
+				srcs/free_utils.c \
+				srcs/swap.c \
+				srcs/sort_utils.c \
+				srcs/print.c
 
 OBJ_CHECKER		= $(SRCS_CHECKER:.c=.o)
 
 OBJ_PSW			= $(SRCS_PSW:.c=.o)
 
-all :	$(PSW) #$(CHECKER)
+all :	 $(CHECKER) #$(PSW)
 
 .c.o :	
 		@printf "\033[0;33mGenerating objects... %-33.33s\r" $@
 		@$(CC) $(FLAGS) $(HEADER) -c $< -o $(<:.c=.o)
 
-# $(CHECKER) :	$(OBJ_CHECKER)
-# 				@make -C libft/
-# 				@$(CC) $(FLAGS) $(HEADER) $(OBJ_CHECKER) -o $(CHECKER) -L libft/ -lft
-# 				@echo "Building checker : \033[32mOK\033[0m"
-
-$(PSW) :		$(OBJ_PSW)
+$(CHECKER) :	$(OBJ_CHECKER)
 				@make -C libft/
-				@$(CC) $(FLAGS) $(HEADER) $(OBJ_PSW) -o $(PSW) -L libft/ -lft
-				@echo "Building push_swap : \033[32mOK\033[0m"
+				@$(CC) $(FLAGS) $(HEADER) $(OBJ_CHECKER) -o $(CHECKER) -L libft/ -lft
+				@echo "Building checker : \033[32mOK\033[0m"
+
+# $(PSW) :		$(OBJ_PSW)
+# 				@make -C libft/
+# 				@$(CC) $(FLAGS) $(HEADER) $(OBJ_PSW) -o $(PSW) -L libft/ -lft
+# 				@echo "Building push_swap : \033[32mOK\033[0m"
 
 clean :		
 		@rm -rf $(OBJ_CHECKER) $(OBJ_PSW)

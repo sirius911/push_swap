@@ -12,7 +12,122 @@
 
 #include "../includes/push_swap.h"
 
-int	main(void)
+int	is_valid_cmd(char *op)
 {
+	if (!ft_strcmp(op, "sa")
+		|| !ft_strcmp(op, "sb")
+		|| !ft_strcmp(op, "ss")
+		|| !ft_strcmp(op, "pa")
+		|| !ft_strcmp(op, "pb")
+		|| !ft_strcmp(op, "ra")
+		|| !ft_strcmp(op, "rb")
+		|| !ft_strcmp(op, "rr")
+		|| !ft_strcmp(op, "rra")
+		|| !ft_strcmp(op, "rrb")
+		|| !ft_strcmp(op, "rrr"))
+		return (TRUE);
+	return (FALSE);
+}
+
+int	execute(char *op, t_list **stack_a, t_list **stack_b)
+{
+	if (!is_valid_cmd(op))
+	{
+		printf("Error\n");
+		return (TRUE);
+	}
+	if (ft_strcmp(op, "sa") == 0)
+		swap(*stack_a);
+	else if (ft_strcmp(op, "sb") == 0)
+		swap(*stack_b);
+	else if (ft_strcmp(op, "ss") == 0)
+	{
+		swap(*stack_a);
+		swap(*stack_b);
+	}
+	else if (ft_strcmp(op, "pa") == 0)
+		push(stack_b, stack_a);
+	else if (ft_strcmp(op, "pb") == 0)
+		push(stack_a, stack_b);
+	else if (ft_strcmp(op, "ra") == 0)
+		rotate(stack_a);
+	else if (ft_strcmp(op, "rb") == 0)
+		rotate(stack_b);
+	else if (ft_strcmp(op, "rr") == 0)
+	{
+		rotate(stack_a);
+		rotate(stack_b);
+	}
+	else if (ft_strcmp(op, "rra") == 0)
+		inv_rotate(stack_a);
+	else if (ft_strcmp(op, "rrb") == 0)
+		inv_rotate(stack_b);
+	else if (ft_strcmp(op, "rrr") == 0)
+	{
+		inv_rotate(stack_a);
+		inv_rotate(stack_b);
+	}
+	return (FALSE);
+}
+
+int	main(int argc, char **argv)
+{
+	t_list	*stack_a;
+	t_list	*stack_b;
+
+	stack_a = NULL;
+	stack_b = NULL;
+	if (argc > 1)
+	{
+		stack_a = create_stack(argv);
+		if (!stack_a)
+		{
+			printf("Error\n");
+			return (1);
+		}
+		//print_stack(stack_a, stack_b);
+		int exit = FALSE;
+		int ret;
+		char *buff;
+		while (!exit &&(ret = get_next_line(0, &buff)) > 0)
+		{
+			exit = execute(buff, &stack_a, &stack_b);
+			free(buff);
+			//print_stack(stack_a, stack_b);
+		}
+		//print_stack(stack_a, stack_b);
+		// printf("Swap A\n");
+		// swap(stack_a);
+		// printf("Swap B\n");
+		// swap(stack_b);
+		// print_stack(stack_a, stack_b);
+
+		// printf("push A \n");
+		// push(&stack_b, &stack_a);
+		// print_stack(stack_a, stack_b);
+
+		// printf("push B \n");
+		// push(&stack_a, &stack_b);
+		// print_stack(stack_a, stack_b);
+
+		// printf("rotate A \n");
+		// rotate(&stack_a);
+		// print_stack(stack_a, stack_b);
+
+		// printf("inv_rotate A \n");
+		// inv_rotate(&stack_a);
+		// print_stack(stack_a, stack_b);
+
+		// printf("inv_rotate B \n");
+		// inv_rotate(&stack_b);
+		// print_stack(stack_a, stack_b);
+
+		// printf("taille stack A : %d\n", ft_lstsize(stack_a));
+		// printf("taille stack B : %d\n", ft_lstsize(stack_b));
+		if (!exit)
+			printf("%s\n",(is_sorted(stack_a) && ft_lstsize(stack_b) == 0) ? "OK":"KO");
+		ft_lstclear(&stack_a, &free_stack);
+		ft_lstclear(&stack_b, &free_stack);
+	}
 	return (0);
 }
