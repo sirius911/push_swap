@@ -29,7 +29,7 @@ int	is_valid_cmd(char *op)
 	return (FALSE);
 }
 
-int	execute(char *op, t_list **stack_a, t_list **stack_b)
+static int	execute(char *op, t_list **stack_a, t_list **stack_b)
 {
 	if (!is_valid_cmd(op))
 	{
