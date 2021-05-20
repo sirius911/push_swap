@@ -18,12 +18,12 @@
 # include <limits.h>
 
 void	print_stack(t_list *stack_a, t_list *stack_b);
-void	push(t_list **source, t_list **dest);
-void	rotate(t_list **stack);
-void	inv_rotate(t_list **stack);
+void	push(t_list **source, t_list **dest, char *str);
+void	rotate(t_list **stack, char *str);
+void	inv_rotate(t_list **stack, char *str);
 int		is_sorted(t_list *stack);
 t_list	*create_stack(char **tab);
 void	free_stack(void *content);
-void	swap(t_list *stack);
+void	swap(t_list *stack, char *str);
 
 #endif
