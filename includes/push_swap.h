@@ -29,8 +29,13 @@ t_list	*create_stack(char **tab);
 void	free_stack(void *content);
 void	swap(t_list *stack, char *str);
 void 	algo_three(t_list **stack);
-void	algo_four(t_list **stack_a, t_list **stack_b);
-void	algo_five(t_list **stack_a, t_list **stack_b);
-void 	push_b_multiple(t_list **stack_a, t_list **stack_b, int len_b);
+void	algo_four_five(t_list **stack_a, t_list **stack_b, int five);
+void	algo_hundred(t_list **stack_a, t_list **stack_b);
+void 	push_b_multiple(t_list **stack_a, t_list **stack_b, int max_s, int min_s);
+void	row_on_top(t_list **stack, char s, int row);
+void	min_on_top_a(t_list **stack);
+int		first_sup(t_list *stack, int cible);
+int		min_row(t_list *stack);
+int		max_row(t_list *stack);
 
 #endif

@@ -12,74 +12,156 @@
 
 #include "../includes/push_swap.h"
 
-/*
-*	counts the number of rotations necessary to insert nb in stack A
-*/
-
-static int	nb_ra(t_list *stack, int nb)
+int	min_row(t_list *stack)
 {
-	int 	dest;
 	t_list	*tmp;
-// 	printf("ici nb_ra to %d\n", nb);
-// printf("nb rotation = ");
-	dest = 0;
+	int		i;
+	int		min;
+	int		row;
+
 	tmp = stack;
-	// print_stack(stack, NULL);
-	while (ft_atoi((char *)tmp->content) < nb)
+	i = 0;
+	row = 0;
+	min = ft_atoi((char *)tmp->content);
+	while (tmp)
 	{
-		// printf("content = %s\n", (char *)tmp->content);
-			dest++;
-			tmp = tmp->next;
+		if (min > ft_atoi((char *)tmp->content))
+		{
+			min = ft_atoi((char *)tmp->content);
+			row = i;
+		}
+		i++;
+		tmp = tmp->next;
 	}
-// printf("%d\n", dest);
-	return (dest);
+	return (row);
+}
+
+int	max_row(t_list *stack)
+{
+	t_list	*tmp;
+	int		i;
+	int		max;
+	int		row;
+
+	tmp = stack;
+	i = 0;
+	row = 0;
+	max = ft_atoi((char *)tmp->content);
+	while (tmp)
+	{
+		if (max < ft_atoi((char *)tmp->content))
+		{
+			max = ft_atoi((char *)tmp->content);
+			row = i;
+		}
+		i++;
+		tmp = tmp->next;
+	}
+	return (row);
+}
+
+
+/*
+*	Renvoi le premier rang de la pile triée dont la valeur est supérieur à cible 
+*/
+int	first_sup(t_list *stack, int cible)
+{
+	t_list	*tmp;
+	int		row;
+
+	tmp = stack;
+	row = 0;
+	while (tmp)
+	{
+		if (ft_atoi((char *)tmp->content) > cible)
+			return (row);
+		row++;
+		tmp = tmp->next;
+	}
+	return (-1);
+}
+
+void	min_on_top_a(t_list **stack)
+{
+	int	row;
+	int size;
+	int	i;
+
+	size = ft_lstsize(*stack);
+	row = min_row(*stack);
+	//printf("Min du stack = %d au rang %d\n", min(*stack), row);
+	if (row > size / 2)
+	{
+		i = size - row;
+		while (i > 0)
+		{
+			inv_rotate(stack, "rra");
+			i--;
+		}
+	}
+	else
+	{
+		i = row;
+		while (i > 0)
+		{
+			rotate(stack, "ra");
+			i--;
+		}
+	}
 }
 
 /*
-*	push B after nb rotation then reverse the rotation of nb rotation
+*	Mets le rang donné en haut de la pile
 */
 
-static void	push_a_rotation(t_list **stack_a, t_list **stack_b, int nb_rotation)
+void	row_on_top(t_list **stack, char s, int row)
 {
-	int	nb;
+	int		size;
+	char	*str;
+	int		i;
 
-	nb = 0;
-	while (nb < nb_rotation)
+	size = ft_lstsize(*stack);
+	if (row > size / 2)
 	{
-		rotate(stack_a, "ra");
-		nb++;
+		str = ft_strdup("rrx");
+		str[2] = s;
+		i = size - row;
+		while (i > 0)
+		{
+			inv_rotate(stack, str);
+			i--;
+		}
 	}
-	push(stack_b, stack_a, "pa");
-	nb = 0;
-	while (nb < nb_rotation)
+	else
 	{
-		inv_rotate(stack_a, "rra");
-		nb++;
+		str = ft_strdup("rx");
+		str[1] = s;
+		while (row > 0)
+		{
+			rotate(stack, str);
+			row--;
+		}
 	}
+	ft_strdel(&str);
 }
 
-void push_b_multiple(t_list **stack_a, t_list **stack_b, int len_b)
+void push_b_multiple(t_list **stack_a, t_list **stack_b, int max_s, int min_s)
 {
-	int top_stack_b;
-	int	i;
-	int	nb_rotation;
+	int	rang;
 
-	i = 1;
-	while (i <= len_b)
+	while (*stack_b)
 	{
-		top_stack_b = ft_atoi((char *)(*stack_b)->content);
-		if (top_stack_b < min(*stack_a))
-			push(stack_b, stack_a, "pa");
-		else if (top_stack_b > max(*stack_a))
+		if (ft_atoi((char *)(*stack_b)->content) == max_s
+			|| ft_atoi((char *)(*stack_b)->content) == min_s)
 		{
+			min_on_top_a(stack_a);
 			push(stack_b, stack_a, "pa");
-			rotate(stack_a, "ra");
 		}
 		else
 		{
-			nb_rotation = nb_ra(*stack_a, top_stack_b);
-			push_a_rotation(stack_a, stack_b, nb_rotation);
+			rang = first_sup(*stack_a, ft_atoi((char *)(*stack_b)->content));
+			row_on_top(stack_a, 'a', rang);
+			push(stack_b, stack_a, "pa");
 		}
-		i++;
 	}
 }

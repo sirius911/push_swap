@@ -19,11 +19,11 @@ static void execute(t_list **stack_a, t_list **stack_b)
 	else if (ft_lstsize(*stack_a) == 3)
 		algo_three(stack_a);
 	else if (ft_lstsize(*stack_a) == 4)
-		algo_four(stack_a, stack_b);
+		algo_four_five(stack_a, stack_b, FALSE);
 	else if (ft_lstsize(*stack_a) == 5)
-		algo_five(stack_a, stack_b);
-	else
-		printf("stack > 5\n");
+		algo_four_five(stack_a, stack_b, TRUE);
+	else 
+		algo_hundred(stack_a, stack_b);
 }
 
 int	main(int argc, char **argv)
@@ -46,7 +46,7 @@ int	main(int argc, char **argv)
 		}
 		if (!is_sorted(stack_a))
 			execute(&stack_a, &stack_b);
-		print_stack(stack_a, stack_b);
+		//print_stack(stack_a, stack_b);
 		ft_lstclear(&stack_a, &free_stack);
 		ft_lstclear(&stack_b, &free_stack);
 	}

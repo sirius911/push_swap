@@ -82,7 +82,7 @@ int	main(int argc, char **argv)
 		stack_a = create_stack(argv);
 		if (!stack_a)
 		{
-			printf("Error\n");
+			ft_putstr("Error\n");
 			return (1);
 		}
 		//print_stack(stack_a, stack_b);
@@ -125,7 +125,7 @@ int	main(int argc, char **argv)
 		// printf("taille stack A : %d\n", ft_lstsize(stack_a));
 		// printf("taille stack B : %d\n", ft_lstsize(stack_b));
 		if (!exit)
-			printf("%s\n",(is_sorted(stack_a) && ft_lstsize(stack_b) == 0) ? "OK":"KO");
+			ft_putstr((is_sorted(stack_a) && ft_lstsize(stack_b) == 0) ? "OK\n":"KO\n");
 		ft_lstclear(&stack_a, &free_stack);
 		ft_lstclear(&stack_b, &free_stack);
 	}
