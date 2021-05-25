@@ -227,10 +227,19 @@ fi
 echo "\n💠 💠 💠 💠 💠 💠 💠 💠 💠 💠 💠 💠 💠 💠 💠 💠 💠 💠 💠 💠 💠 💠 💠 💠 💠 💠 💠 💠 💠 💠 💠 💠 💠 💠"
 echo "\n\t\t\t 🤹🏻‍♀️  RANDOM VALUES TEST 🤹🏻‍♀️ \n"
 
-
+let "max = 0"
+let "min = 1500"
 for ((i = 0; i < $count; i++))
 do
 ARG=`ruby -e "puts ($from..$to).to_a.shuffle.join(' ')"` ; res=$(./push_swap $ARG | wc -l)
+if [ $res -gt $max ]
+then
+    let "max = $res"
+fi
+if [ $res -lt $min ]
+then
+    let "min = $res"
+fi
 if [ $dif -eq 100 ]
 then
 if [ $res -gt 1500 ]
@@ -302,6 +311,7 @@ done
 let "koef = $sred / $count"
 if [ $dif -eq 100 ]
     then
+        echo "\nmax = $max\tmin = $min"
     if [ $koef -gt 1300 ]
     then
     echo "\nMiddle value: \033[33m$koef\033[m   Grade is :  0️⃣     ❗️"
