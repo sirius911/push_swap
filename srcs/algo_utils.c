@@ -81,6 +81,10 @@ int	first_sup(t_list *stack, int cible)
 	return (-1);
 }
 
+/*
+*	Put the min value on top of the stack
+*/
+
 void	min_on_top_a(t_list **stack)
 {
 	int	row;
@@ -105,6 +109,41 @@ void	min_on_top_a(t_list **stack)
 		while (i > 0)
 		{
 			rotate(stack, "ra");
+			i--;
+		}
+	}
+}
+
+/*
+*	Put the max value on top of the stack
+*/
+
+void	max_on_top_b(t_list **stack)
+{
+	int	row;
+	int size;
+	int	i;
+
+	size = ft_lstsize(*stack);
+	if (size == 0)
+		return ;
+	row = max_row(*stack);
+	//printf("Max du stack = %d au rang %d\n", max(*stack), row);
+	if (row > size / 2)
+	{
+		i = size - row;
+		while (i > 0)
+		{
+			inv_rotate(stack, "rrb");
+			i--;
+		}
+	}
+	else
+	{
+		i = row;
+		while (i > 0)
+		{
+			rotate(stack, "rb");
 			i--;
 		}
 	}

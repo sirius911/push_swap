@@ -71,6 +71,31 @@ int	min(t_list *stack)
 	return (min_stack);
 }
 
+/*
+*	return the row of min value of tab
+*/
+
+int	min_tab(int *stack, const int size)
+{
+	int		min_stack;
+	int		i;
+	int		row;
+
+	i = 0;
+	min_stack = stack[0];
+	row = i;
+	while (i < size)
+	{
+		if (stack[i] < min_stack)
+		{
+			min_stack = stack[i];
+			row = i;
+		}
+		i++;
+	}
+	return (row);
+}
+
 static int	has_duplicate(char **tab)
 {
 	int		i;
