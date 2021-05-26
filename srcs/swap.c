@@ -12,7 +12,7 @@
 
 #include "../includes/push_swap.h"
 
-void	swap(t_list *stack, char *str)
+void	swap(t_list *stack, char *str, t_list **op)
 {
 	char	*tmp_a;
 	char	*tmp_b;
@@ -24,6 +24,9 @@ void	swap(t_list *stack, char *str)
 		stack->next->content = tmp_a;
 		stack->content = tmp_b;
 		if (str)
-		ft_putendl(str);
+		{
+			//ft_putendl(str);
+			ft_lstadd_back(op, ft_lstnew(ft_strdup(str)));
+		}
 	}
 }

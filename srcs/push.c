@@ -26,7 +26,7 @@ static char	*pop(t_list **stack)
 	return (tmp);
 }
 
-void	push(t_list **source, t_list **dest, char *str)
+void	push(t_list **source, t_list **dest, char *str, t_list **op)
 {
 	char	*tmp;
 
@@ -36,6 +36,9 @@ void	push(t_list **source, t_list **dest, char *str)
 		ft_lstadd_front(dest, ft_lstnew(ft_strdup(tmp)));
 		ft_strdel(&tmp);
 		if (str)
-			ft_putendl(str);
+		{
+			ft_lstadd_back(op, ft_lstnew(ft_strdup(str)));
+			//ft_putendl(str);
+		}
 	}
 }

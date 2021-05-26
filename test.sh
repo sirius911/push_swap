@@ -231,7 +231,7 @@ let "max = 0"
 let "min = 1500"
 for ((i = 0; i < $count; i++))
 do
-ARG=`ruby -e "puts ($from..$to).to_a.shuffle.join(' ')"` ; res=$(./push_swap $ARG | wc -l)
+ARG=`ruby -e "puts ($from..$to).to_a.shuffle.join(' ')"` ;res=$(./push_swap $ARG | wc -l)
 if [ $res -gt $max ]
 then
     let "max = $res"

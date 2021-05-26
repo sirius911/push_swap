@@ -37,35 +37,35 @@ static int	execute(char *op, t_list **stack_a, t_list **stack_b)
 		return (TRUE);
 	}
 	if (ft_strcmp(op, "sa") == 0)
-		swap(*stack_a, NULL);
+		swap(*stack_a, NULL, NULL);
 	else if (ft_strcmp(op, "sb") == 0)
-		swap(*stack_b, NULL);
+		swap(*stack_b, NULL, NULL);
 	else if (ft_strcmp(op, "ss") == 0)
 	{
-		swap(*stack_a, NULL);
-		swap(*stack_b, NULL);
+		swap(*stack_a, NULL, NULL);
+		swap(*stack_b, NULL, NULL);
 	}
 	else if (ft_strcmp(op, "pa") == 0)
-		push(stack_b, stack_a, NULL);
+		push(stack_b, stack_a, NULL, NULL);
 	else if (ft_strcmp(op, "pb") == 0)
-		push(stack_a, stack_b, NULL);
+		push(stack_a, stack_b, NULL, NULL);
 	else if (ft_strcmp(op, "ra") == 0)
-		rotate(stack_a, NULL);
+		rotate(stack_a, NULL, NULL);
 	else if (ft_strcmp(op, "rb") == 0)
-		rotate(stack_b, NULL);
+		rotate(stack_b, NULL, NULL);
 	else if (ft_strcmp(op, "rr") == 0)
 	{
-		rotate(stack_a, NULL);
-		rotate(stack_b, NULL);
+		rotate(stack_a, NULL, NULL);
+		rotate(stack_b, NULL, NULL);
 	}
 	else if (ft_strcmp(op, "rra") == 0)
-		inv_rotate(stack_a, NULL);
+		inv_rotate(stack_a, NULL, NULL);
 	else if (ft_strcmp(op, "rrb") == 0)
-		inv_rotate(stack_b, NULL);
+		inv_rotate(stack_b, NULL, NULL);
 	else if (ft_strcmp(op, "rrr") == 0)
 	{
-		inv_rotate(stack_a, NULL);
-		inv_rotate(stack_b, NULL);
+		inv_rotate(stack_a, NULL, NULL);
+		inv_rotate(stack_b, NULL, NULL);
 	}
 	return (FALSE);
 }

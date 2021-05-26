@@ -85,7 +85,7 @@ int	first_sup(t_list *stack, int cible)
 *	Put the min value on top of the stack
 */
 
-void	min_on_top_a(t_list **stack)
+void	min_on_top_a(t_list **stack, t_list **op)
 {
 	int	row;
 	int size;
@@ -99,7 +99,7 @@ void	min_on_top_a(t_list **stack)
 		i = size - row;
 		while (i > 0)
 		{
-			inv_rotate(stack, "rra");
+			inv_rotate(stack, "rra", op);
 			i--;
 		}
 	}
@@ -108,7 +108,7 @@ void	min_on_top_a(t_list **stack)
 		i = row;
 		while (i > 0)
 		{
-			rotate(stack, "ra");
+			rotate(stack, "ra", op);
 			i--;
 		}
 	}
@@ -118,7 +118,7 @@ void	min_on_top_a(t_list **stack)
 *	Put the max value on top of the stack
 */
 
-void	max_on_top_b(t_list **stack)
+void	max_on_top_b(t_list **stack, t_list **op)
 {
 	int	row;
 	int size;
@@ -134,7 +134,7 @@ void	max_on_top_b(t_list **stack)
 		i = size - row;
 		while (i > 0)
 		{
-			inv_rotate(stack, "rrb");
+			inv_rotate(stack, "rrb", op);
 			i--;
 		}
 	}
@@ -143,7 +143,7 @@ void	max_on_top_b(t_list **stack)
 		i = row;
 		while (i > 0)
 		{
-			rotate(stack, "rb");
+			rotate(stack, "rb", op);
 			i--;
 		}
 	}
@@ -153,7 +153,7 @@ void	max_on_top_b(t_list **stack)
 *	Mets le rang donné en haut de la pile
 */
 
-void	row_on_top(t_list **stack, char s, int row)
+void	row_on_top(t_list **stack, char s, int row, t_list **op)
 {
 	int		size;
 	char	*str;
@@ -167,7 +167,7 @@ void	row_on_top(t_list **stack, char s, int row)
 		i = size - row;
 		while (i > 0)
 		{
-			inv_rotate(stack, str);
+			inv_rotate(stack, str, op);
 			i--;
 		}
 	}
@@ -177,14 +177,14 @@ void	row_on_top(t_list **stack, char s, int row)
 		str[1] = s;
 		while (row > 0)
 		{
-			rotate(stack, str);
+			rotate(stack, str, op);
 			row--;
 		}
 	}
 	ft_strdel(&str);
 }
 
-void push_b_multiple(t_list **stack_a, t_list **stack_b, int max_s, int min_s)
+void push_b_multiple(t_list **stack_a, t_list **stack_b, int max_s, int min_s, t_list **op)
 {
 	int	rang;
 
@@ -193,14 +193,14 @@ void push_b_multiple(t_list **stack_a, t_list **stack_b, int max_s, int min_s)
 		if (ft_atoi((char *)(*stack_b)->content) == max_s
 			|| ft_atoi((char *)(*stack_b)->content) == min_s)
 		{
-			min_on_top_a(stack_a);
-			push(stack_b, stack_a, "pa");
+			min_on_top_a(stack_a, op);
+			push(stack_b, stack_a, "pa", op);
 		}
 		else
 		{
 			rang = first_sup(*stack_a, ft_atoi((char *)(*stack_b)->content));
-			row_on_top(stack_a, 'a', rang);
-			push(stack_b, stack_a, "pa");
+			row_on_top(stack_a, 'a', rang, op);
+			push(stack_b, stack_a, "pa", op);
 		}
 	}
 }
