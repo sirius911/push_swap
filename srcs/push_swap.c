@@ -15,6 +15,7 @@
 static void execute(t_list **stack_a, t_list **stack_b)
 {
 	t_list	*op;
+	t_list	*head_op;
 
 	op = NULL;
 	if (ft_lstsize(*stack_a) == 2)
@@ -30,6 +31,7 @@ static void execute(t_list **stack_a, t_list **stack_b)
 	//opti(&op);
 
 int opti = 0;
+head_op = op;
 	while(op)
 	{
 		
@@ -79,8 +81,8 @@ int opti = 0;
 		ft_putstr("\n");
 		op = op->next;
 	}
-	// printf("Opti = %d\n", opti);
-	ft_lstclear(&op, &free_stack);
+	//printf("Opti = %d\n", opti);
+	ft_lstclear(&head_op, &free_stack);
 	//print_stack(*stack_a, *stack_b);
 }
 

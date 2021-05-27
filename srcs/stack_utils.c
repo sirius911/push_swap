@@ -96,26 +96,71 @@ int	min_tab(int *stack, const int size)
 	return (row);
 }
 
-static int	has_duplicate(char **tab)
+t_list	*has_duplicate(t_list *stack)
 {
-	int		i;
-	int		j;
+	t_list	*stack_tmp;
+	t_list	*head_stack;
 	char	*tmp;
-
-	i = 1;
-	while (tab[i])
+	
+	stack_tmp = stack;
+	head_stack = stack;
+	while(stack)
 	{
-		tmp = tab[i];
-		j = i + 1;
-		while (tab[j])
+		tmp = (char *)stack->content;
+		//printf("tmp = %s\n", tmp);
+		stack_tmp = stack->next;
+		while (stack_tmp)
 		{
-			if (ft_strcmp(tab[j], tmp) == 0)
-				return (TRUE);
-			j++;
+			if (ft_strcmp(tmp, (char *)stack_tmp->content) == 0)
+			{
+				ft_lstclear(&head_stack, &free_stack);
+				return (NULL);
+			}
+			stack_tmp = stack_tmp->next;
 		}
-		i++;
+		stack = stack->next;
 	}
-	return (FALSE);
+	return (head_stack);
+}
+
+// static int	has_duplicate(char **tab)
+// {
+// 	int		i;
+// 	int		j;
+// 	char	*tmp;
+
+// 	i = 1;
+// 	while (tab[i])
+// 	{
+// 		tmp = tab[i];
+// 		j = i + 1;
+// 		while (tab[j])
+// 		{
+// 			if (ft_strcmp(tab[j], tmp) == 0)
+// 				return (TRUE);
+// 			j++;
+// 		}
+// 		i++;
+// 	}
+// 	return (FALSE);
+// }
+
+void	free_split(char **split)
+{
+	int	i;
+
+	i = 0;
+	while (split[i])
+		ft_strdel(&split[i++]);
+	free(split);
+	split = NULL;
+}
+
+t_list	*bad_stack(t_list **stack, char **split)
+{
+	free_split(split);
+	ft_lstclear(stack, &free_stack);
+	return (NULL);
 }
 
 t_list	*create_stack(char **tab)
@@ -125,20 +170,40 @@ t_list	*create_stack(char **tab)
 
 	i = 1;
 	stack = NULL;
-	while (tab[i])
-		if (!ft_is_nbr(tab[i++]))
-			return (NULL);
-	i = 1;
+	char **split;
+
+	split = NULL;
 	while (tab[i])
 	{
-		if (ft_atoll(tab[i]) > INT_MAX || ft_atoll(tab[i]) < INT_MIN)
-			return (NULL);
+		split = ft_split(tab[i], ' ');
+		int j = 0;
+		while (split[j])
+		{
+			if (!ft_is_nbr(split[j]) || ft_atoll(split[j]) > INT_MAX
+				|| ft_atoll(split[j]) < INT_MIN)
+				return (bad_stack(&stack, split));
+			else
+				ft_lstadd_back(&stack, ft_lstnew(ft_strdup(split[j])));
+			j++;
+		}
+		free_split(split);
 		i++;
 	}
-	if (has_duplicate(tab))
-		return (NULL);
-	i = 1;
-	while (tab[i])
-		ft_lstadd_back(&stack, ft_lstnew(ft_strdup(tab[i++])));
-	return (stack);
+
+	// while (tab[i])
+	// 	if (!ft_is_nbr(tab[i++]))
+	// 		return (NULL);
+	// i = 1;
+	// while (tab[i])
+	// {
+	// 	if (ft_atoll(tab[i]) > INT_MAX || ft_atoll(tab[i]) < INT_MIN)
+	// 		return (NULL);
+	// 	i++;
+	// }
+	// if (has_duplicate(tab))
+	// 	return (NULL);
+	// i = 1;
+	// while (tab[i])
+	// 	ft_lstadd_back(&stack, ft_lstnew(ft_strdup(tab[i++])));
+	return (has_duplicate(stack));
 }
