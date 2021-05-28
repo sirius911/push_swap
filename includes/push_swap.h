@@ -27,6 +27,7 @@ int		min_tab(int *stack, const int size);
 int		is_sorted(t_list *stack);
 int		sorted_top(t_list *stack);
 t_list	*create_stack(char **tab);
+t_list	*optimize(t_list *op);
 void	free_stack(void *content);
 void	swap(t_list *stack, char *str, t_list **op);
 void 	algo_three(t_list **stack, t_list **op);

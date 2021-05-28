@@ -28,55 +28,10 @@ static void execute(t_list **stack_a, t_list **stack_b)
 		algo_four_five(stack_a, stack_b, TRUE, &op);
 	else 
 		algo_hundred(stack_a, stack_b, &op);
-	//opti(&op);
-
-int opti = 0;
-head_op = op;
+	op = optimize(op);
+	head_op = op;
 	while(op)
 	{
-		
-		if (op->next)
-		{
-			if ((!ft_strcmp((char *)op->content, "sa") && !ft_strcmp((char *)op->next->content, "sb")) ||
-				(!ft_strcmp((char *)op->content, "sb") && !ft_strcmp((char *)op->next->content, "sa")))
-			{
-				opti++;
-				ft_strdel((char **)&op->content);
-				op->content = ft_strdup("ss");
-				t_list *op_del;
-				op_del = op->next;
-				if (op->next->next)
-					op->next = op->next->next;
-				ft_strdel((char **)&op_del->content);
-				free(op->next);
-			}
-			if ((!ft_strcmp((char *)op->content, "ra") && !ft_strcmp((char *)op->next->content, "rb")) ||
-				(!ft_strcmp((char *)op->content, "rb") && !ft_strcmp((char *)op->next->content, "ra")))
-			{
-				opti++;
-				ft_strdel((char **)&op->content);
-				op->content = ft_strdup("rr");
-				t_list *op_del;
-				op_del = op->next;
-				if (op->next->next)
-					op->next = op->next->next;
-				ft_strdel((char **)&op_del->content);
-				free(op->next);
-			}
-			if ((!ft_strcmp((char *)op->content, "rra") && !ft_strcmp((char *)op->next->content, "rrb")) ||
-				(!ft_strcmp((char *)op->content, "rrb") && !ft_strcmp((char *)op->next->content, "rra")))
-			{
-				opti++;
-				ft_strdel((char **)&op->content);
-				op->content = ft_strdup("rrr");
-				t_list *op_del;
-				op_del = op->next;
-				if (op->next->next)
-					op->next = op->next->next;
-				ft_strdel((char **)&op_del->content);
-				free(op->next);
-			}
-		}
 		ft_putstr((char *)op->content);
 		ft_putstr("\n");
 		op = op->next;

@@ -37,7 +37,8 @@ SRCS_PSW = 		srcs/push_swap.c \
 				srcs/sort_utils.c \
 				srcs/algo.c \
 				srcs/algo_utils.c \
-				srcs/print.c
+				srcs/print.c \
+				srcs/optimize.c
 
 OBJ_CHECKER		= $(SRCS_CHECKER:.c=.o)
 
