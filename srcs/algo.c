@@ -146,20 +146,25 @@ int	get_hold_first(int *stack, int size, int min, int max)
 {
 	int	i;
 	int j;
+	int	coef;
 
 	if (!stack)
 		return (-1);
 	j = min;
-	while (j < max)
+	if (size > 100)
+		coef = 40;
+	else
+		coef = 15;
+	while (j <= max)
 	{
 		i = 0;
 		while (i < size)
 		{
-			if (stack[i] >= j && stack[i] <= j + 20)
+			if (stack[i] >= j && stack[i] <= j + coef)
 				return (i);
 			i++;
 		}
-		j += 20;
+		j += coef;
 	}
 	return (-1);
 }
@@ -168,20 +173,25 @@ int	get_hold_second(int *stack, int size, int min, int max)
 {
 	int	i;
 	int j;
+	int	coef;
 
 	if (!stack)
 		return (-1);
 	j = min;
-	while (j < max)
+	if (size > 100)
+		coef = 40;
+	else
+		coef = 15;
+	while (j <= max)
 	{
 		i = size - 1;
 		while (i >= 0)
 		{
-			if (stack[i] >= j && stack[i] <= j + 20)
+			if (stack[i] >= j && stack[i] <= j + coef)
 				return (i);
 			i--;
 		}
-		j += 20;
+		j += coef;
 	}
 	return (-1);
 }
@@ -195,14 +205,10 @@ void	push_b_value(t_list **stack_a, t_list **stack_b, t_list **op)
 
 	value_to_push = ft_atoi((char *)(*stack_a)->content);
 	if (ft_lstsize(*stack_b) == 0)
-	{
-		//printf("B vide\n");
 		push(stack_a, stack_b, "pb", op);
-	}
 	else if (value_to_push > max(*stack_b)
 			|| value_to_push < min(*stack_b))
 	{
-		//printf("%d value min or max de B\n", value_to_push);
 		max_on_top_b(stack_b, op);
 		push(stack_a, stack_b, "pb", op);
 	}
@@ -211,7 +217,6 @@ void	push_b_value(t_list **stack_a, t_list **stack_b, t_list **op)
 		size = ft_lstsize(*stack_b);
 		tab = lst_to_tab(*stack_b);
 		rang = first_inf(tab, value_to_push, size);
-		//printf("value = %d est a mettre au dessus de %d dans B\n", value_to_push, rang);
 		row_on_top(stack_b, 'b', rang, op);
 		push(stack_a, stack_b, "pb", op);
 		free(tab);
@@ -230,26 +235,20 @@ void	algo_hundred(t_list **stack_a, t_list **stack_b, t_list **op)
 	int hold_second_row;
 	int row_to_top;
 	int	value_to_push;
-	int	max_value;
-	int min_value;
+	// int	max_value;
+	// int min_value;
 
-	max_value = max(*stack_a);
-	min_value = min(*stack_a);
+	// max_value = max(*stack_a);
+	// min_value = min(*stack_a);
 
 	while (*stack_a)
 	{
 		size = ft_lstsize(*stack_a);
 		tab = lst_to_tab(*stack_a);
-		//printf("size = %d\n", size);
-		hold_first_row = get_hold_first(tab, size, min_value, max_value);
-		hold_second_row = get_hold_second(tab, size, min_value, max_value);
+		hold_first_row = get_hold_first(tab, size, min(*stack_a), max(*stack_a));
+		hold_second_row = get_hold_second(tab, size, min(*stack_a), max(*stack_a));
 		if (hold_first_row == -1 || hold_second_row == -1)
-		{
-			// print_stack(*stack_a, *stack_b);
 			return ;
-		}
-		//printf("hold_first_row = %d =>value = %d\n", hold_first_row, tab[hold_first_row]);
-		//printf("hold_second_row = %d =>value = %d\n", hold_second_row, tab[hold_second_row]);
 		if (hold_first_row < (size - hold_second_row))
 		{
 			value_to_push = tab[hold_first_row];
@@ -260,244 +259,11 @@ void	algo_hundred(t_list **stack_a, t_list **stack_b, t_list **op)
 			value_to_push = tab[hold_second_row];
 			row_to_top = hold_second_row;
 		}
-		//printf("On met au top A le rang %d\n", row_to_top);
 		row_on_top(stack_a, 'a', row_to_top, op);
-		//printf("on push %d dans B\n", value_to_push);
 		free(tab);
 		push_b_value(stack_a, stack_b, op);
-		//print_stack(*stack_a, *stack_b);
 	}
 	max_on_top_b(stack_b, op);
 	while (*stack_b)
-	{
 		push(stack_b, stack_a, "pa", op);
-	}
-	//print_stack(*stack_a, *stack_b);
 }
-
-void	algo_hundred_pivo(t_list **stack_a, t_list **stack_b, t_list **op)
-{
-	int	size;
-	int	*tab;
-	int hold_first_row;
-	int hold_second_row;
-	int row_to_top;
-	int	value_to_push;
-
-	int	max_value;
-	int min_value;
-
-	max_value = max(*stack_a);
-	min_value = min(*stack_a);
-	int sum = 0;
-	size = ft_lstsize(*stack_a);
-	tab = lst_to_tab(*stack_a);
-
-	// trie a bulle
-	int tmp;
-	for (int i=0 ; i < size - 1; i++)
-  	{
-    	for (int j=0 ; j < size - i - 1; j++)
-    	{
-    		if (tab[j] > tab[j+1]) 
-			{
-				tmp = tab[j];
-        		tab[j] = tab[j+1];
-        		tab[j+1] = tmp;
-      		}
-    	}
-  	}
-	for (int i=0; i < size; i++)
-	{
-		printf("%d\n", tab[i]);
-		sum += tab[i];
-	}
-	if (size % 2 == 0)
-	{
-		// paire
-	}
-	else
-	{
-		//impaire
-	}
-	int moyenne = sum / size;
-	printf("moyenne = %d\n", moyenne);
-	while (*stack_a)
-	{
-		size = ft_lstsize(*stack_a);
-		tab = lst_to_tab(*stack_a);
-		//printf("size = %d\n", size);
-		hold_first_row = get_hold_first(tab, size, min_value, max_value);
-		hold_second_row = get_hold_second(tab, size, min_value, max_value);
-		if (hold_first_row == -1 || hold_second_row == -1)
-		{
-			// print_stack(*stack_a, *stack_b);
-			return ;
-		}
-		//printf("hold_first_row = %d =>value = %d\n", hold_first_row, tab[hold_first_row]);
-		//printf("hold_second_row = %d =>value = %d\n", hold_second_row, tab[hold_second_row]);
-		if (hold_first_row < (size - hold_second_row))
-		{
-			value_to_push = tab[hold_first_row];
-			row_to_top = hold_first_row;
-		}
-		else
-		{
-			value_to_push = tab[hold_second_row];
-			row_to_top = hold_second_row;
-		}
-		//printf("On met au top A le rang %d\n", row_to_top);
-		row_on_top(stack_a, 'a', row_to_top, op);
-		//printf("on push %d dans B\n", value_to_push);
-		free(tab);
-		push_b_value(stack_a, stack_b, op);
-		//print_stack(*stack_a, *stack_b);
-	}
-	max_on_top_b(stack_b, op);
-	while (*stack_b)
-	{
-		push(stack_b, stack_a, "pa", op);
-	}
-	//print_stack(*stack_a, *stack_b);
-}
-
-void algo_hundred3(t_list **stack_a, t_list **stack_b, t_list **op)
-{
-	/*
-	je divise size par 4 (je trouve un nombre de chiffre)
-	je prend le plus petit de premier quart et regarde son rang
-	je regarde le rang du plus petit du 4eme quart
-	je met en haut celui qui est le plus facile a mettre
-	je push en b en 
-	*/
-	int		size;
-	int		*tab;
-	int 	min_top;
-	int 	min_bottom;
-	int		value_to_push;
-	int		max_value;
-	int 	min_value;
-
-	max_value = max(*stack_a);
-	min_value = min(*stack_a);
-	int sum = 0;
-	size = ft_lstsize(*stack_a);
-	tab = lst_to_tab(*stack_a);
-
-	// trie a bulle
-	int tmp;
-	for (int i=0 ; i < size - 1; i++)
-  	{
-    	for (int j=0 ; j < size - i - 1; j++)
-    	{
-    		if (tab[j] > tab[j+1]) 
-			{
-				tmp = tab[j];
-        		tab[j] = tab[j+1];
-        		tab[j+1] = tmp;
-      		}
-    	}
-  	}
-	for (int i=0; i < size; i++)
-	{
-		//printf("%d\n", tab[i]);
-		sum += tab[i];
-	}
-	//
-	//calcul quartille
-
-	int q1 = 0.25 * size;
-	//printf("q1 = 0.25 * %d = %d soir value = %d\n", size, q1, tab[q1]);
-	int q2 = 0.75 * size;
-	//printf("q2 = 0.75 * %d = %d soit value = %d\n", size, q2, tab[q2]);
-while (*stack_a)
-{
-	size = ft_lstsize(*stack_a);
-	tab = lst_to_tab(*stack_a);
-	//for(int i = 0; i < size; i++)
-		//printf("tab[%d] = %d\n", i, tab[i]);
-	if (size > 4)
-	{
-		//printf("size = %d top = [0,%d] bottom = [%d,%d]\n", size, size/4, 3*size/4,size-1);
-		min_top = min_row_tab(tab, 0, q1);
-		min_bottom = min_row_tab(tab, q2, size-1);
-		//printf("meilleur rang au top = %d -> tab[%d] = %d\n", min_top, min_top, tab[min_top]);
-		//printf("meilleur rang au bottom = %d -> tab[%d] = %d\n", min_bottom, min_bottom, tab[min_bottom]);
-		if (min_top < (size - min_bottom))
-		{
-			//printf("TOP\n");
-			row_on_top(stack_a, 'a', min_top, op);
-			value_to_push = tab[min_top];
-		}
-		else
-		{
-			//printf("BOTTOM\n");
-			row_on_top(stack_a, 'a', min_bottom, op);
-			value_to_push = tab[min_bottom];
-		}
-	}
-	else
-	{
-		min_on_top_a(stack_a, op);
-		value_to_push = ft_atoi((char *)(*stack_a)->content);
-	}
-	free(tab);
-	// on push la nouvelle valeur dans b mais ou ?
-	//printf("value_to_push = %d\n", value_to_push);
-	if (ft_lstsize(*stack_b) == 0)
-		push(stack_a, stack_b, "pb", op);
-	else if (value_to_push > max(*stack_b)
-			|| value_to_push < min(*stack_b))
-	{
-		//printf("value min or max\n");
-		max_on_top_b(stack_b, op);
-		push(stack_a, stack_b, "pb", op);
-	}
-	else
-	{
-		size = ft_lstsize(*stack_b);
-		tab = lst_to_tab(*stack_b);
-		int rang = first_inf(tab, value_to_push, size);
-		//printf("value = %d est a mettre au dessus de %d dans B\n", value_to_push, rang);
-		row_on_top(stack_b, 'b', rang, op);
-		push(stack_a, stack_b, "pb", op);
-		free(tab);
-	}
-	//print_stack(*stack_a, *stack_b);
-}
-max_on_top_b(stack_b, op);
-while (*stack_b)
-	{
-		push(stack_b, stack_a, "pa", op);
-	}
-//print_stack(*stack_a, *stack_b);
-}
-
-// void	algo_hundred2(t_list **stack_a, t_list **stack_b)
-// {
-// 	/*
-// 	Je prend le plus petit de a et le push sur b
-// 	Ensuite je poush tout B dans A
-// 	middle 1460
-// 	Max > 1665
-// 	Min > 1250
-// 	*/
-// 	int max_s;
-// 	int min_s;
-
-// 	max_s = max(*stack_a);
-// 	min_s = min(*stack_a);
-// 	while (*stack_a)
-// 	{
-// 		min_on_top_a(stack_a);
-// 		//print_stack(*stack_a, *stack_b);
-// 		push(stack_a, stack_b, "pb");
-// 		//print_stack(*stack_a, *stack_b);
-// 	}
-// 	//ft_putstr("ici\n");
-// 	while (*stack_b)
-// 	{
-// 		push(stack_b, stack_a, "pa");
-// 	}
-// 	//print_stack(*stack_a, *stack_b);
-// }
