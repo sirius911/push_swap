@@ -12,7 +12,7 @@
 
 #include "../includes/push_swap.h"
 
-int	is_valid_cmd(char *op)
+static int	is_valid_cmd(char *op)
 {
 	if (!ft_strcmp(op, "sa")
 		|| !ft_strcmp(op, "sb")
@@ -26,6 +26,25 @@ int	is_valid_cmd(char *op)
 		|| !ft_strcmp(op, "rrb")
 		|| !ft_strcmp(op, "rrr"))
 		return (TRUE);
+	return (FALSE);
+}
+
+static int	execute2(char *op, t_list **stack_a, t_list **stack_b)
+{
+	if (ft_strcmp(op, "rr") == 0)
+	{
+		rotate(stack_a, NULL, NULL);
+		rotate(stack_b, NULL, NULL);
+	}
+	else if (ft_strcmp(op, "rra") == 0)
+		inv_rotate(stack_a, NULL, NULL);
+	else if (ft_strcmp(op, "rrb") == 0)
+		inv_rotate(stack_b, NULL, NULL);
+	else if (ft_strcmp(op, "rrr") == 0)
+	{
+		inv_rotate(stack_a, NULL, NULL);
+		inv_rotate(stack_b, NULL, NULL);
+	}
 	return (FALSE);
 }
 
@@ -53,30 +72,33 @@ static int	execute(char *op, t_list **stack_a, t_list **stack_b)
 		rotate(stack_a, NULL, NULL);
 	else if (ft_strcmp(op, "rb") == 0)
 		rotate(stack_b, NULL, NULL);
-	else if (ft_strcmp(op, "rr") == 0)
-	{
-		rotate(stack_a, NULL, NULL);
-		rotate(stack_b, NULL, NULL);
-	}
-	else if (ft_strcmp(op, "rra") == 0)
-		inv_rotate(stack_a, NULL, NULL);
-	else if (ft_strcmp(op, "rrb") == 0)
-		inv_rotate(stack_b, NULL, NULL);
-	else if (ft_strcmp(op, "rrr") == 0)
-	{
-		inv_rotate(stack_a, NULL, NULL);
-		inv_rotate(stack_b, NULL, NULL);
-	}
+	else
+		return (execute2(op, stack_a, stack_b));
 	return (FALSE);
+}
+
+static int	boucle(t_list **stack_a, t_list **stack_b)
+{
+	int		exit;
+	int		ret;
+	char	*buff;
+
+	exit = FALSE;
+	ret = 1;
+	while (!exit && ret > 0 )
+	{
+		ret = get_next_line(0, &buff);
+		if (ret > 0)
+			exit = execute(buff, stack_a, stack_b);
+		free(buff);
+	}
+	return (exit);
 }
 
 int	main(int argc, char **argv)
 {
 	t_list	*stack_a;
 	t_list	*stack_b;
-	int		exit;
-	int		ret;
-	char	*buff;
 
 	stack_a = NULL;
 	stack_b = NULL;
@@ -88,14 +110,13 @@ int	main(int argc, char **argv)
 			ft_putstr("Error\n");
 			return (1);
 		}
-		exit = FALSE;
-		while (!exit && (ret = get_next_line(0, &buff)) > 0)
+		if (!boucle(&stack_a, &stack_b))
 		{
-			exit = execute(buff, &stack_a, &stack_b);
-			free(buff);
+			if (is_sorted(stack_a) && ft_lstsize(stack_b) == 0)
+				ft_putstr("OK\n");
+			else
+				ft_putstr("KO\n");
 		}
-		if (!exit)
-			ft_putstr((is_sorted(stack_a) && ft_lstsize(stack_b) == 0) ? "OK\n":"KO\n");
 		ft_lstclear(&stack_a, &free_stack);
 		ft_lstclear(&stack_b, &free_stack);
 	}

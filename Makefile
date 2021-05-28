@@ -26,7 +26,6 @@ SRCS_CHECKER = 	srcs/checker.c \
 				srcs/free_utils.c \
 				srcs/swap.c \
 				srcs/sort_utils.c \
-				srcs/print.c
 
 SRCS_PSW = 		srcs/push_swap.c \
 				srcs/push.c \
@@ -38,7 +37,6 @@ SRCS_PSW = 		srcs/push_swap.c \
 				srcs/algo.c \
 				srcs/algo_three_four_five.c \
 				srcs/algo_utils.c \
-				srcs/print.c \
 				srcs/optimize.c \
 				srcs/tab_utils.c
 
@@ -46,7 +44,9 @@ OBJ_CHECKER		= $(SRCS_CHECKER:.c=.o)
 
 OBJ_PSW			= $(SRCS_PSW:.c=.o)
 
-all :	 $(CHECKER) $(PSW)
+all :	 $(PSW)
+
+bonus :		$(CHECKER)
 
 .c.o :	
 		@printf "\033[0;33mGenerating objects... %-33.33s\r" $@
@@ -74,4 +74,4 @@ fclean :	clean
 
 re :	fclean all
 
-.PHOMY :	all clean fclean re
+.PHOMY :	all clean fclean re bonus
