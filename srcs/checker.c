@@ -74,6 +74,9 @@ int	main(int argc, char **argv)
 {
 	t_list	*stack_a;
 	t_list	*stack_b;
+	int		exit;
+	int		ret;
+	char	*buff;
 
 	stack_a = NULL;
 	stack_b = NULL;
@@ -85,45 +88,12 @@ int	main(int argc, char **argv)
 			ft_putstr("Error\n");
 			return (1);
 		}
-		//print_stack(stack_a, stack_b);
-		int exit = FALSE;
-		int ret;
-		char *buff;
-		while (!exit &&(ret = get_next_line(0, &buff)) > 0)
+		exit = FALSE;
+		while (!exit && (ret = get_next_line(0, &buff)) > 0)
 		{
 			exit = execute(buff, &stack_a, &stack_b);
 			free(buff);
-			//print_stack(stack_a, stack_b);
 		}
-		//print_stack(stack_a, stack_b);
-		// printf("Swap A\n");
-		// swap(stack_a);
-		// printf("Swap B\n");
-		// swap(stack_b);
-		// print_stack(stack_a, stack_b);
-
-		// printf("push A \n");
-		// push(&stack_b, &stack_a);
-		// print_stack(stack_a, stack_b);
-
-		// printf("push B \n");
-		// push(&stack_a, &stack_b);
-		// print_stack(stack_a, stack_b);
-
-		// printf("rotate A \n");
-		// rotate(&stack_a);
-		// print_stack(stack_a, stack_b);
-
-		// printf("inv_rotate A \n");
-		// inv_rotate(&stack_a);
-		// print_stack(stack_a, stack_b);
-
-		// printf("inv_rotate B \n");
-		// inv_rotate(&stack_b);
-		// print_stack(stack_a, stack_b);
-
-		// printf("taille stack A : %d\n", ft_lstsize(stack_a));
-		// printf("taille stack B : %d\n", ft_lstsize(stack_b));
 		if (!exit)
 			ft_putstr((is_sorted(stack_a) && ft_lstsize(stack_b) == 0) ? "OK\n":"KO\n");
 		ft_lstclear(&stack_a, &free_stack);

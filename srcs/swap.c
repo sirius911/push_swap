@@ -24,9 +24,6 @@ void	swap(t_list *stack, char *str, t_list **op)
 		stack->next->content = tmp_a;
 		stack->content = tmp_b;
 		if (str)
-		{
-			//ft_putendl(str);
 			ft_lstadd_back(op, ft_lstnew(ft_strdup(str)));
-		}
 	}
 }

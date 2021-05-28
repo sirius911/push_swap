@@ -19,3 +19,14 @@ void	free_stack(void *content)
 	e = (char *)content;
 	ft_strdel(&e);
 }
+
+void	free_split(char **split)
+{
+	int	i;
+
+	i = 0;
+	while (split[i])
+		ft_strdel(&split[i++]);
+	free(split);
+	split = NULL;
+}

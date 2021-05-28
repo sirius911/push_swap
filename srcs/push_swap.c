@@ -12,7 +12,7 @@
 
 #include "../includes/push_swap.h"
 
-static void execute(t_list **stack_a, t_list **stack_b)
+static void	execute(t_list **stack_a, t_list **stack_b)
 {
 	t_list	*op;
 	t_list	*head_op;
@@ -26,19 +26,17 @@ static void execute(t_list **stack_a, t_list **stack_b)
 		algo_four_five(stack_a, stack_b, FALSE, &op);
 	else if (ft_lstsize(*stack_a) == 5)
 		algo_four_five(stack_a, stack_b, TRUE, &op);
-	else 
+	else
 		algo_hundred(stack_a, stack_b, &op);
 	op = optimize(op);
 	head_op = op;
-	while(op)
+	while (op)
 	{
 		ft_putstr((char *)op->content);
 		ft_putstr("\n");
 		op = op->next;
 	}
-	//printf("Opti = %d\n", opti);
 	ft_lstclear(&head_op, &free_stack);
-	//print_stack(*stack_a, *stack_b);
 }
 
 int	main(int argc, char **argv)
@@ -53,7 +51,6 @@ int	main(int argc, char **argv)
 	{
 		i = 1;
 		stack_a = create_stack(argv);
-		//print_stack(stack_a, stack_b);
 		if (!stack_a)
 		{
 			printf("Error\n");
@@ -61,7 +58,6 @@ int	main(int argc, char **argv)
 		}
 		if (!is_sorted(stack_a))
 			execute(&stack_a, &stack_b);
-		//print_stack(stack_a, stack_b);
 		ft_lstclear(&stack_a, &free_stack);
 		ft_lstclear(&stack_b, &free_stack);
 	}
