@@ -13,6 +13,31 @@
 #include "../includes/push_swap.h"
 
 /*
+*	return the row of max value of tab
+*/
+
+int	max_tab(int *stack, const int size)
+{
+	int		max_stack;
+	int		i;
+	int		row;
+
+	i = 0;
+	max_stack = stack[0];
+	row = i;
+	while (i < size)
+	{
+		if (stack[i] > max_stack)
+		{
+			max_stack = stack[i];
+			row = i;
+		}
+		i++;
+	}
+	return (row);
+}
+
+/*
 *	return the row of min value of tab
 */
 

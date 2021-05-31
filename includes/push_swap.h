@@ -23,6 +23,7 @@ void	inv_rotate(t_list **stack, char *str, t_list **op);
 int		max(t_list *stack);
 int		min(t_list *stack);
 int		min_tab(int *stack, const int size);
+int		max_tab(int *stack, const int size);
 int		is_sorted(t_list *stack);
 int		sorted_top(t_list *stack);
 t_list	*create_stack(char **tab);
@@ -40,5 +41,6 @@ void	min_on_top_a(t_list **stack, t_list **op);
 void	max_on_top_b(t_list **stack, t_list **op);
 int		min_row(t_list *stack);
 int		max_row(t_list *stack);
+void	print_stack(t_list *stack_a, t_list *stack_b);
 
 #endif

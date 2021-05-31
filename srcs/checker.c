@@ -52,7 +52,7 @@ static int	execute(char *op, t_list **stack_a, t_list **stack_b)
 {
 	if (!is_valid_cmd(op))
 	{
-		printf("Error\n");
+		ft_putstr("Error\n");
 		return (TRUE);
 	}
 	if (ft_strcmp(op, "sa") == 0)

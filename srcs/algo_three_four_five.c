@@ -13,46 +13,60 @@
 #include "../includes/push_swap.h"
 
 /*
-*	Renvoi le premier rang de la pile triée dont la valeur est supérieur à cible 
+*	Return the first row of the sorted stack whose value is more than target 
 */
-static int	first_sup(t_list *stack, int cible)
+static int	first_sup(int *stack, int target, int size)
 {
-	t_list	*tmp;
-	int		row;
+	int		max_row;
+	int		i;
+	int		exit;
 
-	tmp = stack;
-	row = 0;
-	while (tmp)
+	max_row = max_tab(stack, size);
+	i = max_row;
+	exit = FALSE;
+	while (stack[i] < target)
 	{
-		if (ft_atoi((char *)tmp->content) > cible)
-			return (row);
-		row++;
-		tmp = tmp->next;
+		i++;
+		if (i == size)
+			i = 0;
 	}
-	return (-1);
+	while (stack[i] > target)
+	{
+		i--;
+		if (i < 0)
+			i = size - 1;
+	}
+	return (i + 1);
 }
 
+/*
+*	function emptying stack B on stack A already sorted
+*/
 static void	push_b_multiple(t_list **stack_a, t_list **stack_b, t_list **op)
 {
+	int	value_to_push;
 	int	rang;
-	int	max_s;
-	int	min_s;
+	int	size;
+	int	*tab;
 
-	max_s = max(*stack_a);
-	min_s = min(*stack_a);
 	while (*stack_b)
 	{
-		if (ft_atoi((char *)(*stack_b)->content) == max_s
-			|| ft_atoi((char *)(*stack_b)->content) == min_s)
+		value_to_push = ft_atoi((char *)(*stack_b)->content);
+		if (ft_lstsize(*stack_a) == 0)
+			push(stack_b, stack_a, "pa", op);
+		else if (value_to_push > max(*stack_a) || value_to_push < min(*stack_a))
 		{
 			min_on_top_a(stack_a, op);
 			push(stack_b, stack_a, "pa", op);
 		}
 		else
 		{
-			rang = first_sup(*stack_a, ft_atoi((char *)(*stack_b)->content));
+			size = ft_lstsize(*stack_a);
+			tab = lst_to_tab(*stack_a);
+			rang = first_sup(tab, value_to_push, size);
 			row_on_top(stack_a, 'a', rang, op);
 			push(stack_b, stack_a, "pa", op);
+			free(tab);
 		}
 	}
 }
