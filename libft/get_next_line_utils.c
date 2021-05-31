@@ -37,10 +37,13 @@ char	*strjoin_gnl(char const *s1, char const *s2)
 	return (dest);
 }
 
-int	ft_result_gnl(int result, int len_static)
+int	ft_result_gnl(int result, char *str_static)
 {
-	if (result == 0 && len_static == 0)
+	if (result == 0 && ft_strlen(str_static) == 0)
+	{
+		ft_strdel(&str_static);
 		return (0);
+	}
 	else
 		return (1);
 }

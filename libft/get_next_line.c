@@ -9,7 +9,7 @@
 /*   Updated: 2020/11/24 10:59:37 by clorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
+#include <stdio.h>
 #include "libft.h"
 
 /*
@@ -152,6 +152,6 @@ int	get_next_line(const int fd, char **line)
 	free(buffer);
 	*line = recup_line(str_static[fd]);
 	str_static[fd] = save_static(str_static[fd]);
-	result = ft_result_gnl(result, ft_strlen(str_static[fd]));
+	result = ft_result_gnl(result, str_static[fd]);
 	return (result);
 }
