@@ -105,7 +105,7 @@ void			ft_striteri(char *s, void (*f)(unsigned int, char *));
 char			*ft_strmap(char const *s, char (*f)(char));
 t_list			*ft_lstsplit(char const *s, char c);
 int				get_next_line(const int fd, char **line);
-int				ft_result_gnl(int result, int len_static);
+int				ft_result_gnl(int result, char *str_static);
 char			*strjoin_gnl(char const *s1, char const *s2);
 size_t			ft_intlen(long long nb);
 #endif
