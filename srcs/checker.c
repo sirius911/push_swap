@@ -85,12 +85,13 @@ static int	boucle(t_list **stack_a, t_list **stack_b)
 
 	exit = FALSE;
 	ret = 1;
+	buff = NULL;
 	while (!exit && ret > 0 )
 	{
 		ret = get_next_line(0, &buff);
 		if (ret > 0)
 			exit = execute(buff, stack_a, stack_b);
-		free(buff);
+		ft_strdel(&buff);
 	}
 	return (exit);
 }
